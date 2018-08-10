@@ -31,7 +31,7 @@ substracts(expr::Expr) = (expr.head == :call) & (expr.args[1] == :-)
 """
 Sugarcoat '.isnull'
 """
-isempty(nl::Nullable) = nl.isnull
+isempty(nl::Union{Missing,T}) where T = ismissing(nl)
 
 """
 Make dictionary containing the kwargs contents.
@@ -147,8 +147,8 @@ Base.copy!, Base.scale! or Base.LinAlg.axpy!.
 - `Y ±= X`
 - `Y ±= a*X`
 """
-#Must be ordered from most to least especific formulas
 macro blas!(expr::Expr)
+    #Must be ordered from most to least specific formulas
     unkeyword!(expr)
     expr = expand(expr)
     @case begin

@@ -1,5 +1,5 @@
 using SugarBLAS
-using Base.Test
+using Test
 
 #scale!
 @test macroexpand(SugarBLAS, :(SugarBLAS.@scale! X *= a)) == :(scale!(a, X))
